@@ -16,10 +16,13 @@ public class MatrizSenku {
     public void empezar(){
         for (int i=0; i<7; i++){
             for (int j = 0; j<7; j++){
-                if (i < 2 && j < 2 || i > 4 && j < 2 || i < 2 && j > 4 || i > 4 && j > 4 || i == 3 && j == 3){
+                if (i < 2 && j < 2 || i > 4 && j < 2 || i < 2 && j > 4 || i > 4 && j > 4){
                     matrizSenku[i][j] = 0;
 
-                } else{
+                }else if (i == 3 && j == 3){
+                    matrizSenku[i][j] = 0;
+                }
+                else{
                     matrizSenku[i][j] = 1;
                 }
             }   
