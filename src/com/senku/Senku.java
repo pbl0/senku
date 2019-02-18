@@ -30,6 +30,7 @@ public class Senku extends Application {
         primaryStage.setTitle("Senku");
         primaryStage.setScene(scene);
         primaryStage.show();
+        System.out.println("Hola");
     }
 
     /**
