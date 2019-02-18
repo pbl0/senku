@@ -17,8 +17,9 @@ public class NewMain {
     public static void main(String[] args) {
         
         MatrizSenku matrizSenku = new MatrizSenku();
-        matrizSenku.empezar();
-        matrizSenku.mostrarMatriz();
+        int [][] matriz = matrizSenku.getMatrizInicial();
+        matrizSenku.moverFicha(matriz,3,1,3,3);
+        matrizSenku.mostrarMatriz(matriz);
         // TODO code application logic here
     }
     
