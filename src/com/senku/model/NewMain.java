@@ -17,10 +17,19 @@ public class NewMain {
     public static void main(String[] args) {
         
         MatrizSenku matrizSenku = new MatrizSenku();
-        int [][] matriz = matrizSenku.getMatrizInicial();
-        matrizSenku.moverFicha(matriz,3,1,3,3);
-        matrizSenku.mostrarMatriz(matriz);
-        // TODO code application logic here
-    }
-    
+        
+        //matrizSenku.reiniciarMatriz();
+        //matrizSenku.mostrarMatriz();
+        //matrizSenku.moverFicha();
+        
+        matrizSenku.moverFicha(5,3,3,3);
+        matrizSenku.moverFicha(2,3,4,3);
+        
+        //matrizSenku.moverFicha(1,3,3,3);
+        //matrizSenku.moverFicha(3,3,5,3);
+        
+        //matrizSenku.moverFicha(2,3,4,3);
+        matrizSenku.mostrarMatriz();
+        
+    }    
 }
