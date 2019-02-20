@@ -11,20 +11,27 @@ package com.senku.model;
  */
 public class MatrizSenku {
     
-    //'2' = pared, '1' = bola, '0' = vacio
-    public char[][] matriz = {
+    public char[][] matriz;
+
+    int score;
+
+    public MatrizSenku() {
+        //'2' = pared, '1' = bola, '0' = vacio
+        this.matriz = new char[][]{
             {'2','2','1','1','1','2','2'},
             {'2','2','1','1','1','2','2'},
-            {'1','1','1','1','1','1','1'},
-            {'1','1','1','0','1','1','1'},
-            {'1','1','1','1','1','1','1'},
-            {'2','2','1','1','1','2','2'},
+            {'1','1','1','1','1','1','1'}, 
+            {'1','1','1','0','1','1','1'}, 
+            {'1','1','1','1','1','1','1'}, 
+            {'2','2','1','1','1','2','2'}, 
             {'2','2','1','1','1','2','2'}
         };
+        this.score = 0;
+    }
     
     public void reiniciarMatriz(){
-        for (int y=0; y<7; y++){
-            for (int x = 0; x<7; x++){
+        for (int y = 0; y < 7; y++){
+            for (int x = 0; x < 7; x++){
                 if (y < 2 && x < 2 || y > 4 && x < 2 || y < 2 && x > 4 || y > 4 && x > 4){
                     matriz[x][y] = '2';
                 }else if (y == 3 && x == 3){
@@ -35,6 +42,7 @@ public class MatrizSenku {
                 }
             }   
         }
+        score = 0;
     }
     
     //Sel = Seleccionada , Des = Destino
@@ -56,7 +64,7 @@ public class MatrizSenku {
             if (xSel == xDes){
                 int posicionMedio = (ySel + yDes)/2;
                 
-                if (Math.abs(ySel - yDes)!= 2){
+                if (Math.abs(ySel - yDes) != 2){
                     System.out.println("No puedes mover la ficha a esta posición");
                     
                 } else if(matriz[xSel][posicionMedio] == vacia){
@@ -67,6 +75,7 @@ public class MatrizSenku {
                     matriz[xSel][posicionMedio] = vacia;
                     matriz[xDes][yDes] = bola;
                     System.out.println("Ficha movida");
+                    score++;
                     
                 }
             } else if (ySel == yDes){
@@ -83,6 +92,7 @@ public class MatrizSenku {
                     matriz[posicionMedio][ySel] = vacia;
                     matriz[xDes][yDes] = bola;
                     System.out.println("Ficha movida");
+                    score++;
                     
                 }
             }
@@ -90,8 +100,8 @@ public class MatrizSenku {
     }
     
     public void mostrarMatriz(){
-       for (int y=0; y<7; y++){
-            for (int x = 0; x<7; x++){
+       for (int y = 0; y < 7; y++){
+            for (int x = 0; x < 7; x++){
                 System.out.print(matriz[x][y]);
             }
             System.out.println();
