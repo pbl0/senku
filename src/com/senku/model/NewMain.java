@@ -25,7 +25,9 @@ public class NewMain {
         matrizSenku.moverFicha(5,3,3,3);
         matrizSenku.moverFicha(2,3,4,3);
         
-        //matrizSenku.moverFicha(1,3,3,3);
+        matrizSenku.moverFicha(1,3,3,3);
+        matrizSenku.moverFicha(3, 0, 3, 0);
+        
         //matrizSenku.moverFicha(3,3,5,3);
         
         //matrizSenku.moverFicha(2,3,4,3);

@@ -23,15 +23,15 @@ public class MatrizSenku {
         };
     
     public void reiniciarMatriz(){
-        for (int i=0; i<7; i++){
-            for (int j = 0; j<7; j++){
-                if (i < 2 && j < 2 || i > 4 && j < 2 || i < 2 && j > 4 || i > 4 && j > 4){
-                    matriz[i][j] = '2';
-                }else if (i == 3 && j == 3){
-                    matriz[i][j] = '0';
+        for (int y=0; y<7; y++){
+            for (int x = 0; x<7; x++){
+                if (y < 2 && x < 2 || y > 4 && x < 2 || y < 2 && x > 4 || y > 4 && x > 4){
+                    matriz[x][y] = '2';
+                }else if (y == 3 && x == 3){
+                    matriz[x][y] = '0';
                 }
                 else{
-                    matriz[i][j] = '1';
+                    matriz[x][y] = '1';
                 }
             }   
         }
@@ -39,13 +39,17 @@ public class MatrizSenku {
     
     //Sel = Seleccionada , Des = Destino
     public void moverFicha(int xSel, int ySel, int xDes, int yDes){
-        if (matriz[xSel][ySel] == '0'){
+        char vacia = '0';
+        char pared = '2';
+        char bola = '1';
+        
+        if (matriz[xSel][ySel] == vacia){
             System.out.println("La casilla seleccionada está vacia.");
             
-        } else if (matriz[xSel][ySel] == '2' || matriz[xDes][yDes] == '2'){
+        } else if (matriz[xSel][ySel] == pared || matriz[xDes][yDes] == pared){
             System.out.println("La casilla seleccionada/destino está fuera del tablero.");
             
-        } else if (matriz[xDes][yDes] != '0'){
+        } else if (matriz[xDes][yDes] != vacia){
             System.out.println("La casilla de destino ya está ocupada.");
             
         } else {
@@ -55,13 +59,13 @@ public class MatrizSenku {
                 if (Math.abs(ySel - yDes)!= 2){
                     System.out.println("No puedes mover la ficha a esta posición");
                     
-                } else if(matriz[xSel][posicionMedio] == '0'){
+                } else if(matriz[xSel][posicionMedio] == vacia){
                     System.out.println("No hay ninguna ficha en medio");
                     
                 } else{
-                    matriz[xSel][ySel] = '0';
-                    matriz[xSel][posicionMedio] = '0';
-                    matriz[xDes][yDes] = '1';
+                    matriz[xSel][ySel] = vacia;
+                    matriz[xSel][posicionMedio] = vacia;
+                    matriz[xDes][yDes] = bola;
                     System.out.println("Ficha movida");
                     
                 }
@@ -71,13 +75,13 @@ public class MatrizSenku {
                 if (Math.abs(xSel - xDes) != 2){
                     System.out.println("No puedes mover la ficha a esta posición");
                     
-                } else if(matriz[posicionMedio][ySel] == 0){
+                } else if(matriz[posicionMedio][ySel] == vacia){
                     System.out.println("No hay ninguna ficha en medio");
                     
                 } else{
-                    matriz[xSel][ySel] = '0';
-                    matriz[posicionMedio][ySel] = '0';
-                    matriz[xDes][yDes] = '1';
+                    matriz[xSel][ySel] = vacia;
+                    matriz[posicionMedio][ySel] = vacia;
+                    matriz[xDes][yDes] = bola;
                     System.out.println("Ficha movida");
                     
                 }
@@ -86,9 +90,9 @@ public class MatrizSenku {
     }
     
     public void mostrarMatriz(){
-       for (int j=0; j<7; j++){
-            for (int i = 0; i<7; i++){
-                System.out.print(matriz[i][j]);
+       for (int y=0; y<7; y++){
+            for (int x = 0; x<7; x++){
+                System.out.print(matriz[x][y]);
             }
             System.out.println();
         }
