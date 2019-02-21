@@ -14,7 +14,7 @@ public class MatrizSenku {
     public char[][] matriz;
 
     int score;
-
+    
     public MatrizSenku() {
         //'2' = pared, '1' = bola, '0' = vacio
         this.matriz = new char[][]{
@@ -26,38 +26,23 @@ public class MatrizSenku {
             {'2','2','1','1','1','2','2'}, 
             {'2','2','1','1','1','2','2'}
         };
-        this.score = 0;
+        this.score = 32;
+        
     }
-    
-    public void reiniciarMatriz(){
-        for (int y = 0; y < 7; y++){
-            for (int x = 0; x < 7; x++){
-                if (y < 2 && x < 2 || y > 4 && x < 2 || y < 2 && x > 4 || y > 4 && x > 4){
-                    matriz[x][y] = '2';
-                }else if (y == 3 && x == 3){
-                    matriz[x][y] = '0';
-                }
-                else{
-                    matriz[x][y] = '1';
-                }
-            }   
-        }
-        score = 0;
-    }
-    
+        
     //Sel = Seleccionada , Des = Destino
     public void moverFicha(int xSel, int ySel, int xDes, int yDes){
-        char vacia = '0';
-        char pared = '2';
-        char bola = '1';
+        final char VACIA = '0';
+        final char PARED = '2';
+        final char BOLA = '1';
         
-        if (matriz[xSel][ySel] == vacia){
+        if (this.matriz[xSel][ySel] == VACIA){
             System.out.println("La casilla seleccionada está vacia.");
             
-        } else if (matriz[xSel][ySel] == pared || matriz[xDes][yDes] == pared){
+        } else if (this.matriz[xSel][ySel] == PARED || this.matriz[xDes][yDes] == PARED){
             System.out.println("La casilla seleccionada/destino está fuera del tablero.");
             
-        } else if (matriz[xDes][yDes] != vacia){
+        } else if (this.matriz[xDes][yDes] != VACIA){
             System.out.println("La casilla de destino ya está ocupada.");
             
         } else {
@@ -67,16 +52,16 @@ public class MatrizSenku {
                 if (Math.abs(ySel - yDes) != 2){
                     System.out.println("No puedes mover la ficha a esta posición");
                     
-                } else if(matriz[xSel][posicionMedio] == vacia){
+                } else if(this.matriz[xSel][posicionMedio] == VACIA){
                     System.out.println("No hay ninguna ficha en medio");
                     
                 } else{
-                    matriz[xSel][ySel] = vacia;
-                    matriz[xSel][posicionMedio] = vacia;
-                    matriz[xDes][yDes] = bola;
+                    this.matriz[xSel][ySel] = VACIA;
+                    this.matriz[xSel][posicionMedio] = VACIA;
+                    this.matriz[xDes][yDes] = BOLA;
                     System.out.println("Ficha movida");
-                    score++;
-                    
+                    this.score--;
+                     
                 }
             } else if (ySel == yDes){
                 int posicionMedio = (xSel + xDes)/2;
@@ -84,15 +69,15 @@ public class MatrizSenku {
                 if (Math.abs(xSel - xDes) != 2){
                     System.out.println("No puedes mover la ficha a esta posición");
                     
-                } else if(matriz[posicionMedio][ySel] == vacia){
+                } else if(this.matriz[posicionMedio][ySel] == VACIA){
                     System.out.println("No hay ninguna ficha en medio");
                     
                 } else{
-                    matriz[xSel][ySel] = vacia;
-                    matriz[posicionMedio][ySel] = vacia;
-                    matriz[xDes][yDes] = bola;
+                    this.matriz[xSel][ySel] = VACIA;
+                    this.matriz[posicionMedio][ySel] = VACIA;
+                    this.matriz[xDes][yDes] = BOLA;
                     System.out.println("Ficha movida");
-                    score++;
+                    this.score--;
                     
                 }
             }
@@ -102,10 +87,26 @@ public class MatrizSenku {
     public void mostrarMatriz(){
        for (int y = 0; y < 7; y++){
             for (int x = 0; x < 7; x++){
-                System.out.print(matriz[x][y]);
+                System.out.print(this.matriz[x][y]);
             }
             System.out.println();
         }
 
     }
 }
+
+//    public void reiniciarMatriz(){
+//        for (int y = 0; y < 7; y++){
+//            for (int x = 0; x < 7; x++){
+//                if (y < 2 && x < 2 || y > 4 && x < 2 || y < 2 && x > 4 || y > 4 && x > 4){
+//                    matriz[x][y] = '2';
+//                }else if (y == 3 && x == 3){
+//                    matriz[x][y] = '0';
+//                }
+//                else{
+//                    matriz[x][y] = '1';
+//                }
+//            }   
+//        }
+//        this.score = 0;
+//    }

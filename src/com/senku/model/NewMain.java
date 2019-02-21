@@ -17,8 +17,9 @@ public class NewMain {
     public static void main(String[] args) {
         
         MatrizSenku matrizSenku = new MatrizSenku();
+        //matrizSenku = new MatrizSenku();
         
-        //matrizSenku.reiniciarMatriz();
+        
         //matrizSenku.mostrarMatriz();
         //matrizSenku.moverFicha();
         
@@ -26,11 +27,15 @@ public class NewMain {
         matrizSenku.moverFicha(2,3,4,3);
         
         matrizSenku.moverFicha(1,3,3,3);
+        
         matrizSenku.moverFicha(3,1,3,3);
         matrizSenku.moverFicha(4,3,2,3);
+        matrizSenku.moverFicha(3,5,3,3);
+        matrizSenku.moverFicha(2,3,4,3);
+        
         matrizSenku.mostrarMatriz();
         
-        System.out.println("Score => "+ matrizSenku.score);
+        System.out.println("Bolas restantes => "+ matrizSenku.score);
         
         //matrizSenku.mostrarMatriz();
         
