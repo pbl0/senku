@@ -22,10 +22,13 @@ public class Senku extends Application {
         
         Tablero tablero = new Tablero();
         
+        tablero.mostrarFondoTablero();
+
+        
         StackPane root = new StackPane();
         root.getChildren().add(tablero.getGridTablero());
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 600, 500);
         
         primaryStage.setTitle("Senku");
         primaryStage.setScene(scene);

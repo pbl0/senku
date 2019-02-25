@@ -12,7 +12,7 @@ package com.senku.model;
 public class MatrizSenku {
     
     public char[][] matriz;
-
+ 
     int score;
     
     public MatrizSenku() {
@@ -35,6 +35,8 @@ public class MatrizSenku {
         final char VACIA = '0';
         final char PARED = '2';
         final char BOLA = '1';
+        
+        
         
         if (this.matriz[xSel][ySel] == VACIA){
             System.out.println("La casilla seleccionada está vacia.");

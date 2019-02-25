@@ -5,13 +5,16 @@
  */
 package com.senku.view;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 
 /**
@@ -20,8 +23,12 @@ import javafx.scene.shape.Circle;
  */
 public class Tablero {
     
+  
+        
+   
+    
     GridPane gridTablero = new GridPane();
-    Circle ficha = new Circle(15);
+    Circle ficha = new Circle(25);
     /*Circle ficha2 = new Circle(15);
     Circle ficha3 = new Circle(15);
     */
@@ -37,7 +44,7 @@ public class Tablero {
       };     
 // Aqui asignamos la funcion del "foco" que llega a la bola, para mas informacion cntrol+space
       RadialGradient coloresRadial = 
-         new RadialGradient(0, 0, 300, 180, 60, false, CycleMethod.NO_CYCLE, stops);
+         new RadialGradient(0, 0, 300, 180, 80, false, CycleMethod.NO_CYCLE, stops);
       
       ficha.setFill(coloresRadial); 
       
@@ -51,7 +58,44 @@ public class Tablero {
         //gridTablero.add(ficha3,5,0);
         return gridTablero;
     }
-    
-    
+        public void rellenarCasilla(int x, int y) {
+              
+        Rectangle r = new Rectangle(50, 50, Color.LIGHTGRAY);
+        r.setStroke(Color.BLACK);
+        gridTablero.add(r, x, y);
+        
+        r.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("clic");
+            }
+        });
+    }   
+       public void esquinasTablero(int x, int y) {
+        
+        Rectangle r = new Rectangle(50, 50, Color.BLACK);
+        gridTablero.add(r, x, y);
+    }
+         
+        
+    public void mostrarFondoTablero(){
+       for (int y = 0; y < 7; y++){
+            for (int x = 0; x < 7; x++){
+                rellenarCasilla(x, y);
+            }
+            System.out.println();
+        }
+
+    }    
+    public void colorearEsquinas1(){
+       for (int y = 0; y < 2; y++){
+            for (int x = 0; x < 2; x++){
+                esquinasTablero(x, y);
+            }
+            System.out.println();
+        }
+
+    }
+
     
 }
