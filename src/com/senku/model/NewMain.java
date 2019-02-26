@@ -5,20 +5,16 @@
  */
 package com.senku.model;
 
-
-
 /**
  *
  * @author PC15
  */
 public class NewMain {
 
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         
         MatrizSenku matrizSenku = new MatrizSenku();
         //matrizSenku = new MatrizSenku();
@@ -35,9 +31,10 @@ public class NewMain {
         matrizSenku.moverFicha(4,3,2,3);
         matrizSenku.moverFicha(3,5,3,3);
         matrizSenku.moverFicha(2,3,4,3);
+        matrizSenku.moverFicha(7,3,4,3);
         
         //matrizSenku.vaciarMatriz();
-        char resultado = matrizSenku.fin();
+        char resultado = matrizSenku.estadoJuego();
         
         matrizSenku.mostrarMatriz();
         
