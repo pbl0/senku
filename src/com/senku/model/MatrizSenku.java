@@ -14,11 +14,9 @@ import java.util.List;
  */
 public class MatrizSenku {
     
+    public char[][] matriz; //matriz del tablero
 
-    public char[][] matriz;
- 
-    int score;
-
+    int score; //nº bolas en tablero
     
     public MatrizSenku() {
         //'2' = pared, '1' = bola, '0' = vacio
