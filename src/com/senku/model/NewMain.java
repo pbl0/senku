@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.senku.model;
+import java.util.List;
 
 /**
  *
@@ -38,9 +39,10 @@ public class NewMain {
         
         matrizSenku.mostrarMatriz();
         
+        
+        
         System.out.println("Bolas restantes => "+ matrizSenku.score);
         System.out.println("Fin => " + resultado);
-        
-        
+        matrizSenku.volverJugada();
     }    
 }

@@ -8,6 +8,7 @@ package com.senku.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  *
  * @author PC15
@@ -17,6 +18,8 @@ public class MatrizSenku {
     public char[][] matriz; //matriz del tablero
 
     public int score; //nº bolas restantes en el tablero.
+    
+    private List mov_anteriores = new ArrayList();
     
     public MatrizSenku() {
         //'2' = pared, '1' = bola, '0' = vacio
@@ -33,6 +36,7 @@ public class MatrizSenku {
         
     }
 
+    
     /**
      * Comrpueba si el juego se ha ganado, perdido o si continua
      * @return
@@ -44,7 +48,6 @@ public class MatrizSenku {
         //List lista = new ArrayList(); 
         boolean movPosible = false;
         
-        
         for (int y = 0; y < 5; y++){
             for (int x = 0; x < 5; x++){
                 if (this.matriz[x][y] == '1' && this.matriz[x+1][y] == '1' && this.matriz[x+2][y] == '0' || 
@@ -53,9 +56,9 @@ public class MatrizSenku {
                     this.matriz[x][y] == '0' && this.matriz[x][y+1] == '1' && this.matriz[x][y+2] == '1'){
                     
                     movPosible = true;
-                    //lista.add(movPosible);
+                    
                 } else {
-                    //lista.add(movPosible);
+                    
                 }
             }
         }
@@ -68,6 +71,7 @@ public class MatrizSenku {
         }
     }
     
+    
     /**
      * Metodo mover ficha
      * Sel = Seleccionada , Des = Destino
@@ -75,8 +79,17 @@ public class MatrizSenku {
      * @param ySel
      * @param xDes
      * @param yDes
+     * @return
+     * 0 -> Sin errores, ficha movida.
+     * 1 -> Error: La casilla seleccionada está vacia.
+     * 2 -> Error: La casilla seleccionada/destino está fuera del tablero.
+     * 3 -> Error: La casilla de destino ya está ocupada.
+     * 4 -> Error: No puedes mover la ficha a esta posición.
+     * 5 -> Error: No hay ninguna ficha en medio.
+     * 6 -> Error: La casilla seleccionada/destino no existe.
+     * 
      */
-    public void moverFicha(int xSel, int ySel, int xDes, int yDes){
+    public char moverFicha(int xSel, int ySel, int xDes, int yDes){
         final char VACIA = '0';
         final char PARED = '2';
         final char BOLA = '1';
@@ -87,12 +100,15 @@ public class MatrizSenku {
         
             if (this.matriz[xSel][ySel] == VACIA){
                 System.out.println("Error: La casilla seleccionada está vacia.");
+                return '1';
 
             } else if (this.matriz[xSel][ySel] == PARED || this.matriz[xDes][yDes] == PARED){
                 System.out.println("Error: La casilla seleccionada/destino está fuera del tablero.");
+                return '2';
 
             } else if (this.matriz[xDes][yDes] != VACIA){
                 System.out.println("Error: La casilla de destino ya está ocupada.");
+                return '3';
 
             } else {
                 if (xSel == xDes){
@@ -100,9 +116,11 @@ public class MatrizSenku {
 
                     if (Math.abs(ySel - yDes) != 2){
                         System.out.println("Error: No puedes mover la ficha a esta posición");
+                        return '4';
 
                     } else if(this.matriz[xSel][posicionMedio] == VACIA){
                         System.out.println("Error: No hay ninguna ficha en medio");
+                        return '5';
 
                     } else{
                         this.matriz[xSel][ySel] = VACIA;
@@ -110,16 +128,28 @@ public class MatrizSenku {
                         this.matriz[xDes][yDes] = BOLA;
                         this.score--;
                         System.out.println("Ficha movida -> " + score);
+                        
+                        Movimiento mov = new Movimiento();
+                        mov.xSel = xSel;
+                        mov.ySel = ySel;
+                        mov.xDes = xDes;
+                        mov.yDes = yDes;
+                        mov_anteriores.add(mov);
+                        
+                        
+                        return '0';
 
                     }
                 } else if (ySel == yDes){
                     int posicionMedio = (xSel + xDes)/2;
 
                     if (Math.abs(xSel - xDes) != 2){
-                        System.out.println("Error: No puedes mover la ficha a esta posición");
+                        System.out.println("Error: No puedes mover la ficha a esta posición.");
+                        return '4';
 
                     } else if(this.matriz[posicionMedio][ySel] == VACIA){
                         System.out.println("Error: No hay ninguna ficha en medio");
+                        return '5';
 
                     } else{
                         this.matriz[xSel][ySel] = VACIA;
@@ -127,14 +157,27 @@ public class MatrizSenku {
                         this.matriz[xDes][yDes] = BOLA;
                         this.score--;
                         System.out.println("Ficha movida -> " + score);
+                        
+                        Movimiento mov = new Movimiento();
+                        mov.xSel = xSel;
+                        mov.ySel = ySel;
+                        mov.xDes = xDes;
+                        mov.yDes = yDes;
+                        mov_anteriores.add(mov);
+                       
+                        return '0';
 
                     }
+                } else{
+                    return '4';
                 }
             }
         } catch(ArrayIndexOutOfBoundsException e){
                 System.out.println("Error: La casilla seleccionada/destino no existe.");
+                return '6';
         }
     }
+    
     
     //muestra la matriz en consola
     public void mostrarMatriz(){
@@ -145,6 +188,14 @@ public class MatrizSenku {
             System.out.println();
         }
     }
+    
+    public void volverJugada(){
+        Object ultMov = mov_anteriores.get(mov_anteriores.size()-1);
+        
+        
+        
+    }
+    
     
     //metodo de prueba:
     public void vaciarMatriz(){
