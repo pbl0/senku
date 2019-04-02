@@ -15,9 +15,4 @@ public class Movimiento {
     public int xDes;
     public int yDes;
     
-    public int getXSel(){
-        return this.xSel;
-    
-}
-    
 }

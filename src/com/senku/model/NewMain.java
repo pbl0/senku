@@ -43,6 +43,6 @@ public class NewMain {
         
         System.out.println("Bolas restantes => "+ matrizSenku.score);
         System.out.println("Fin => " + resultado);
-        matrizSenku.volverJugada();
+        //matrizSenku.volverJugada();
     }    
 }
