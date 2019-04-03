@@ -7,12 +7,13 @@ package com.senku.model;
 
 /**
  *
- * @author PC15
+ * @author Pablo
  */
 public class Movimiento {
     public int xSel;
     public int ySel;
     public int xDes;
     public int yDes;
+    public boolean vertical;
     
 }

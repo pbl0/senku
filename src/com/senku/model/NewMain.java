@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 package com.senku.model;
-import java.util.List;
 
 /**
  *
- * @author PC15
+ * @author Pablo
  */
 public class NewMain {
 
@@ -17,13 +16,13 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        MatrizSenku matrizSenku = new MatrizSenku();
+        MatrizSenku matrizSenku = new MatrizSenku(1);
         //matrizSenku = new MatrizSenku();
         
         //matrizSenku.mostrarMatriz();
         //matrizSenku.moverFicha();
-        
-        matrizSenku.moverFicha(5,3,3,3);
+        char j;
+        j = matrizSenku.moverFicha(5,3,3,3);
         matrizSenku.moverFicha(2,3,4,3);
         
         matrizSenku.moverFicha(1,3,3,3);
@@ -34,8 +33,12 @@ public class NewMain {
         matrizSenku.moverFicha(2,3,4,3);
         matrizSenku.moverFicha(7,3,4,3);
         
+        matrizSenku.volverJugada();
+        
         //matrizSenku.vaciarMatriz();
         char resultado = matrizSenku.estadoJuego();
+        
+        
         
         matrizSenku.mostrarMatriz();
         
