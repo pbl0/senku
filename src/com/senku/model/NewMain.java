@@ -23,27 +23,36 @@ public class NewMain {
         //matrizSenku.moverFicha();
         char j;
         j = matrizSenku.moverFicha(5,3,3,3);
+        
         matrizSenku.moverFicha(2,3,4,3);
         
         matrizSenku.moverFicha(1,3,3,3);
         
         matrizSenku.moverFicha(3,1,3,3);
+        
         matrizSenku.moverFicha(4,3,2,3);
+        
         matrizSenku.moverFicha(3,5,3,3);
+        
         matrizSenku.moverFicha(2,3,4,3);
+        
         matrizSenku.moverFicha(7,3,4,3);
         
-        matrizSenku.volverJugada();
         
-        //matrizSenku.vaciarMatriz();
+        matrizSenku.vaciarMatriz();
+        
+        
+        
+        
+        
+        
         char resultado = matrizSenku.estadoJuego();
-        
-        
+        long tiempo;
+        if (resultado == 'g'){
+            tiempo = matrizSenku.tiempo();
+        }
         
         matrizSenku.mostrarMatriz();
-        
-        
-        
         System.out.println("Bolas restantes => "+ matrizSenku.score);
         System.out.println("Fin => " + resultado);
         //matrizSenku.volverJugada();

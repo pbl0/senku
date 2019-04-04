@@ -5,6 +5,8 @@
  */
 package com.senku.model;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +18,9 @@ import java.util.List;
 public class MatrizSenku {
     
     public char[][] matriz; //matriz del tablero
-
     public int score; //nº bolas restantes en el tablero.
-    
     private List<Movimiento> mov_anteriores = new ArrayList(); //Lista que guarda los movimientos realizados.
+    Instant tiempoInicio; //variable para guardar el tiempo de inicio.
 
     /**
      * Metodo constructor.
@@ -27,6 +28,7 @@ public class MatrizSenku {
      */
     public MatrizSenku(int t) {
         //'2' = pared, '1' = bola, '0' = vacio
+        
         switch (t) {
             case 1:
                 //Cruz
@@ -73,6 +75,7 @@ public class MatrizSenku {
                 break;
         }
         this.mov_anteriores.clear();
+        this.tiempoInicio = Instant.now();
         
     }
     
@@ -82,7 +85,7 @@ public class MatrizSenku {
     
     /**
      * Metodo que comrpueba si el juego se ha ganado, perdido o si continua.
-     * @return
+     * @return char
      * 'c' -> continua jugando.
      * 'g' -> ha ganado; 1 bola en tablero.
      * 'p' -> ha perdido; No hay movimientos posibles.
@@ -111,6 +114,15 @@ public class MatrizSenku {
         }
     }
     
+    /**
+     * Metodo que calcula el tiempo transcurrido desde que se ha iniciado el juego.
+     * @return tiempo de juego en segundos
+     */
+    public long tiempo(){
+        long tiempoTranscurrido = Duration.between(tiempoInicio, Instant.now()).getSeconds();
+        System.out.println(tiempoTranscurrido);
+        return tiempoTranscurrido;
+    }
     
     /**
      * Metodo con el que movemos la ficha. Retorna codigos de error
@@ -118,14 +130,14 @@ public class MatrizSenku {
      * @param ySel Coordenada y seleccionada
      * @param xDes Coordenada x de destino
      * @param yDes Coordenada y de destino
-     * @return char que indica errores.
-     * 0 -> Sin errores, ficha movida.
+     * @return char
+     * 0 -> Sin errores, se mueve la ficha.
      * 1 -> Error: La casilla seleccionada está vacia.
-     * 2 -> Error: La casilla seleccionada/destino está fuera del tablero.
+     * 2 -> Error: La casilla seleccionada/destino está fuera del tablero (Pared).
      * 3 -> Error: La casilla de destino ya está ocupada.
      * 4 -> Error: No puedes mover la ficha a esta posición.
      * 5 -> Error: No hay ninguna ficha en medio.
-     * 6 -> Error: La casilla seleccionada/destino no existe.
+     * 6 -> Error: La casilla seleccionada/destino está fuera de la matriz.
      */
     public char moverFicha(int xSel, int ySel, int xDes, int yDes){
         try{
@@ -217,6 +229,7 @@ public class MatrizSenku {
 
                     }
                 } else{
+                    System.out.println("Error: No puedes mover la ficha a esta posición");
                     return '4';
                 }
             }
@@ -246,32 +259,37 @@ public class MatrizSenku {
      */
     public void volverJugada(){
         
-        Movimiento ultMov = mov_anteriores.get(mov_anteriores.size()-1);
-        
-        int xSel = ultMov.xSel;
-        int ySel = ultMov.ySel;
-        int xDes = ultMov.xDes;
-        int yDes = ultMov.yDes;
-        boolean vertical = ultMov.vertical;
-        
-        if (vertical) {
-            int posicionMedio = (ySel + yDes)/2;
-            this.matriz[xSel][posicionMedio] = this.BOLA;
-        
+        if (mov_anteriores.isEmpty()){
+            //Si no hay movimientos anteriores.
+            System.out.println("No hay jugadas anteriores.");
         } else {
-            int posicionMedio = (xSel + xDes)/2;
-            this.matriz[xSel][posicionMedio] = this.BOLA;
-            
-        }
-        this.matriz[xSel][ySel] = this.BOLA;
-        this.matriz[xDes][yDes] = this.VACIA;
-        mov_anteriores.remove(ultMov);
-        this.score++;
-        System.out.println("Jugada cancelada");
+            Movimiento ultMov = mov_anteriores.get(mov_anteriores.size()-1); //ultimo movimiento
+
+            int xSel = ultMov.xSel;
+            int ySel = ultMov.ySel;
+            int xDes = ultMov.xDes;
+            int yDes = ultMov.yDes;
+            boolean vertical = ultMov.vertical;
+
+            if (vertical) {
+                int posicionMedio = (ySel + yDes)/2;
+                this.matriz[xSel][posicionMedio] = this.BOLA;
+
+            } else {
+                int posicionMedio = (xSel + xDes)/2;
+                this.matriz[xSel][posicionMedio] = this.BOLA;
+
+            }
+            this.matriz[xSel][ySel] = this.BOLA;
+            this.matriz[xDes][yDes] = this.VACIA;
+            mov_anteriores.remove(ultMov);
+            this.score++;
+            System.out.println("Jugada cancelada");
+        }    
     }
     
     /**
-     * metodo de prueba que vacia la matriz simulando una victoria.
+     * Metodo de prueba que vacia la matriz simulando una victoria.
      */
     public void vaciarMatriz(){
         
@@ -287,5 +305,6 @@ public class MatrizSenku {
                 }
             }   
         }
+        this.score = 1;
     }
 }  
