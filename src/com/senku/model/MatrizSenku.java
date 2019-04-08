@@ -11,20 +11,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase MatrizSenku.
- * 
+ * Clase MatrizSenku
+ * Parte Lógica
  * @author Pablo
  */
 public class MatrizSenku {
-    
+    //Propiedades MatrizSenku:
     public char[][] matriz; //matriz del tablero
     public int score; //nº bolas restantes en el tablero.
     private List<Movimiento> mov_anteriores = new ArrayList(); //Lista que guarda los movimientos realizados.
     Instant tiempoInicio; //variable para guardar el tiempo de inicio.
+    
+    final char VACIA = '0';
+    final char PARED = '2';
+    final char BOLA = '1';
 
     /**
      * Metodo constructor.
-     * @param t tablero
+     * Tipo de tablero:
+     * @param t
+     * 1 -> Cruz
+     * 2 -> Octágono
+     * 3 -> Todo bolas
+     * 4 -> Cruz pequeña
+     * 5 -> Paredes alrededor
+     * 
      */
     public MatrizSenku(int t) {
         //'2' = pared, '1' = bola, '0' = vacio
@@ -41,7 +52,6 @@ public class MatrizSenku {
                     {'2','2','1','1','1','2','2'},
                     {'2','2','1','1','1','2','2'}
                 };  
-                this.score = 32;
                 break;
             case 2:
                 //Octágono
@@ -54,7 +64,6 @@ public class MatrizSenku {
                     {'2','1','1','1','1','1','2'},
                     {'2','2','1','1','1','2','2'}
                 };  
-                this.score = 36;
                 break;
             case 3:
                 //Todo bolas.
@@ -67,21 +76,49 @@ public class MatrizSenku {
                     {'1','1','1','1','1','1','1'},
                     {'1','1','1','1','1','1','1'}
                 };  
-                this.score = 48;
+                break;
+            case 4:
+                //Cruz pequeña.
+                this.matriz = new char[][]{
+                    {'2','2','2','2','2','2','2'},
+                    {'2','2','1','1','1','2','2'},
+                    {'2','1','1','1','1','1','2'},
+                    {'2','1','1','0','1','1','2'},
+                    {'2','1','1','1','1','1','2'},
+                    {'2','2','1','1','1','2','2'},
+                    {'2','2','2','2','2','2','2'}
+                };  
+                break;
+            case 5:
+                //Paredes alrededor.
+                this.matriz = new char[][]{
+                    {'2','2','2','2','2','2','2'},
+                    {'2','1','1','1','1','1','2'},
+                    {'2','1','1','1','1','1','2'},
+                    {'2','1','1','0','1','1','2'},
+                    {'2','1','1','1','1','1','2'},
+                    {'2','1','1','1','1','1','2'},
+                    {'2','2','2','2','2','2','2'}
+                };  
                 break;
             default:
                 System.out.println("Error: Selecciona un tablero valido.");
                 System.exit(0);
                 break;
         }
-        this.mov_anteriores.clear();
-        this.tiempoInicio = Instant.now();
+        
+        for (int y = 0; y < 7; y++){
+            for (int x = 0; x < 7; x++){
+                if(this.matriz[x][y] == this.BOLA){
+                    this.score++;
+                }
+            }
+        }
+        System.out.println("Num de bolas iniciales: "+ this.score);
+        this.mov_anteriores.clear(); //Limpia la lista
+        this.tiempoInicio = Instant.now(); //Coge tiempo de inicio.
         
     }
-    
-    final char VACIA = '0';
-    final char PARED = '2';
-    final char BOLA = '1';
     
     /**
      * Metodo que comrpueba si el juego se ha ganado, perdido o si continua.
@@ -93,6 +130,7 @@ public class MatrizSenku {
     public char estadoJuego(){ 
         boolean movPosible = false;
         
+        //comprueba si aun hay movimientos posibles.
         for (int y = 0; y < 5; y++){
             for (int x = 0; x < 5; x++){
                 if (this.matriz[x][y] == this.BOLA && this.matriz[x+1][y] == this.BOLA && this.matriz[x+2][y] == this.VACIA || 
@@ -100,8 +138,7 @@ public class MatrizSenku {
                     this.matriz[x][y] == this.BOLA && this.matriz[x][y+1] == this.BOLA && this.matriz[x][y+2] == this.VACIA || 
                     this.matriz[x][y] == this.VACIA && this.matriz[x][y+1] == this.BOLA && this.matriz[x][y+2] == this.BOLA){
                     
-                    movPosible = true;
-                    
+                    movPosible = true; //Hay al menos un movimiento posible.
                 }
             }
         }
@@ -120,7 +157,7 @@ public class MatrizSenku {
      */
     public long tiempo(){
         long tiempoTranscurrido = Duration.between(tiempoInicio, Instant.now()).getSeconds();
-        System.out.println(tiempoTranscurrido);
+        //System.out.println(tiempoTranscurrido);
         return tiempoTranscurrido;
     }
     
@@ -147,7 +184,7 @@ public class MatrizSenku {
             if (this.matriz[xSel][ySel] == this.VACIA){
                 //Si la casilla seleccionada está vacia
                 System.out.println("Error: La casilla seleccionada está vacia.");
-                return '1';
+                return  '1';
             
             } else if (this.matriz[xSel][ySel] == this.PARED || this.matriz[xDes][yDes] == this.PARED){
                 //Si la casilla seleccionada es una pared
@@ -175,20 +212,20 @@ public class MatrizSenku {
                         return '5';
 
                     } else{
-                        //movemos la ficha
+                        //Movemos la ficha
                         this.matriz[xSel][ySel] = this.VACIA;
                         this.matriz[xSel][posicionMedio] = this.VACIA;
                         this.matriz[xDes][yDes] = this.BOLA;
                         
-                        Movimiento mov = new Movimiento();
-                        mov.xSel = xSel;
-                        mov.ySel = ySel;
-                        mov.xDes = xDes;
-                        mov.yDes = yDes;
-                        mov.vertical = true;
+                        //Objeto de la clase Movimiento:
+                        Movimiento mov = new Movimiento(xSel, ySel, xDes, yDes, true);
+                        
+                        //Almacenamos el movimiento en la lista:
                         this.mov_anteriores.add(mov);
                         
+                        //Disminuye el numero de bolas
                         this.score--;
+                        
                         System.out.println("Ficha movida -> " + score);
                         
                         return '0';
@@ -199,7 +236,7 @@ public class MatrizSenku {
                     int posicionMedio = (xSel + xDes)/2;
 
                     if (Math.abs(xSel - xDes) != 2){
-                        //si el movimiento no es de dos casillas
+                        //Si el movimiento no es de dos casillas
                         System.out.println("Error: No puedes mover la ficha a esta posición.");
                         return '4';
 
@@ -209,20 +246,20 @@ public class MatrizSenku {
                         return '5';
 
                     } else{
-                        //movemos la ficha
+                        //Movemos la ficha
                         this.matriz[xSel][ySel] = this.VACIA;
                         this.matriz[posicionMedio][ySel] = this.VACIA;
                         this.matriz[xDes][yDes] = this.BOLA;
                         
-                        Movimiento mov = new Movimiento();
-                        mov.xSel = xSel;
-                        mov.ySel = ySel;
-                        mov.xDes = xDes;
-                        mov.yDes = yDes;
-                        mov.vertical = false;
+                        //Objeto de la clase Movimiento:
+                        Movimiento mov = new Movimiento(xSel, ySel, xDes, yDes, false);
+                        
+                        //Almacenamos el movimiento en la lista:
                         this.mov_anteriores.add(mov);
                         
+                        //Disminuye el numero de bolas
                         this.score--;
+                        
                         System.out.println("Ficha movida -> " + this.score);
                        
                         return '0';
@@ -263,7 +300,9 @@ public class MatrizSenku {
             //Si no hay movimientos anteriores.
             System.out.println("No hay jugadas anteriores.");
         } else {
-            Movimiento ultMov = mov_anteriores.get(mov_anteriores.size()-1); //ultimo movimiento
+            //ultimo movimiento
+            
+            Movimiento ultMov = mov_anteriores.get(mov_anteriores.size()-1); 
 
             int xSel = ultMov.xSel;
             int ySel = ultMov.ySel;
@@ -291,20 +330,16 @@ public class MatrizSenku {
     /**
      * Metodo de prueba que vacia la matriz simulando una victoria.
      */
-    public void vaciarMatriz(){
-        
+    public void vaciarMatriz(){ 
         for (int y = 0; y < 7; y++){
             for (int x = 0; x < 7; x++){
-                if (y < 2 && x < 2 || y > 4 && x < 2 || y < 2 && x > 4 || y > 4 && x > 4){
-                    this.matriz[x][y] = this.PARED;
-                }else if (y == 3 && x == 3){
-                    this.matriz[x][y] = this.BOLA;
-                }
-                else{
+                if(this.matriz[x][y] == this.BOLA){
                     this.matriz[x][y] = this.VACIA;
+                    this.score--;
                 }
-            }   
+            }
         }
-        this.score = 1;
+        this.matriz[3][3] = this.BOLA;
+        this.score++;
     }
-}  
+}

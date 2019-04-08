@@ -16,13 +16,17 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        MatrizSenku matrizSenku = new MatrizSenku(1);
+        MatrizSenku matrizSenku = new MatrizSenku(2);
         //matrizSenku = new MatrizSenku();
         
         //matrizSenku.mostrarMatriz();
         //matrizSenku.moverFicha();
         char j;
         j = matrizSenku.moverFicha(5,3,3,3);
+        
+        matrizSenku.volverJugada();
+        
+        matrizSenku.moverFicha(5,3,3,3);
         
         matrizSenku.moverFicha(2,3,4,3);
         
@@ -41,13 +45,8 @@ public class NewMain {
         
         matrizSenku.vaciarMatriz();
         
-        
-        
-        
-        
-        
         char resultado = matrizSenku.estadoJuego();
-        long tiempo;
+        long tiempo = 0;
         if (resultado == 'g'){
             tiempo = matrizSenku.tiempo();
         }
@@ -55,6 +54,7 @@ public class NewMain {
         matrizSenku.mostrarMatriz();
         System.out.println("Bolas restantes => "+ matrizSenku.score);
         System.out.println("Fin => " + resultado);
+        System.out.println("Tiempo: " + tiempo);
         //matrizSenku.volverJugada();
     }    
 }
