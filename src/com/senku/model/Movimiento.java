@@ -6,7 +6,7 @@
 package com.senku.model;
 
 /**
- *
+ * Clase Movimiento
  * @author Pablo
  */
 public class Movimiento {
@@ -18,12 +18,13 @@ public class Movimiento {
     public boolean vertical;
     
     /**
-     * Metodo Constructor
-     * @param xSel
-     * @param ySel
-     * @param xDes
-     * @param yDes
-     * @param vertical
+     * Constructor
+     * @author Pablo
+     * @param xSel Coordenada x seleccionada
+     * @param ySel Coordenada y seleccionada
+     * @param xDes Coordenada x de destino
+     * @param yDes Coordenada y de destino
+     * @param vertical vertical o horizontal
      */
     public Movimiento(int xSel, int ySel, int xDes, int yDes, boolean vertical){
         this.xSel = xSel;

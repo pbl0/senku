@@ -6,7 +6,7 @@
 package com.senku.model;
 
 /**
- *
+ * Main de pruebas parte lógica
  * @author Pablo
  */
 public class NewMain {
@@ -46,7 +46,9 @@ public class NewMain {
         matrizSenku.vaciarMatriz();
         
         char resultado = matrizSenku.estadoJuego();
+        
         long tiempo = 0;
+        
         if (resultado == 'g'){
             tiempo = matrizSenku.tiempo();
         }
