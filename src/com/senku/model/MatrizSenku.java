@@ -44,7 +44,6 @@ public class MatrizSenku {
      * <li>4 = Cruz pequeña,</li>
      * <li>5 = Paredes alrededor</li>
      * </ul>
-     
      */
     public MatrizSenku(int t) {
         switch (t) {
@@ -62,7 +61,7 @@ public class MatrizSenku {
                 };
                 break;
             case 2:
-                //Octágono
+                //Octógono
                 this.matriz = new char[][]{
                     {'2','2','1','1','1','2','2'},
                     {'2','1','1','1','1','1','2'},
@@ -323,19 +322,12 @@ public class MatrizSenku {
 
             if (vertical) {
                 int posicionMedio = (ySel + yDes)/2;
-                
-                
                 this.matriz[xSel][posicionMedio] = this.BOLA;
                 
-
             } else {
                 int posicionMedio = (xSel + xDes)/2;
-                
-                
-                
                 this.matriz[posicionMedio][ySel] = this.BOLA;
                 
-
             }
             this.matriz[xSel][ySel] = this.BOLA;
             this.matriz[xDes][yDes] = this.VACIA;

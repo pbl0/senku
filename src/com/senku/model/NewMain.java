@@ -21,7 +21,7 @@ public class NewMain {
         matrizSenku.moverFicha(5,3,3,3);
         
         matrizSenku.volverJugada();
-        matrizSenku.mostrarMatriz();
+        
         matrizSenku.moverFicha(5,3,3,3);
         
         matrizSenku.moverFicha(2,3,4,3);
