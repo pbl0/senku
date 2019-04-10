@@ -17,12 +17,8 @@ public class NewMain {
     public static void main(String[] args) {
         
         MatrizSenku matrizSenku = new MatrizSenku(2);
-        //matrizSenku = new MatrizSenku();
         
-        //matrizSenku.mostrarMatriz();
-        //matrizSenku.moverFicha();
-        char j;
-        j = matrizSenku.moverFicha(5,3,3,3);
+        matrizSenku.moverFicha(5,3,3,3);
         
         matrizSenku.volverJugada();
         
