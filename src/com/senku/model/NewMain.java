@@ -16,12 +16,12 @@ public class NewMain {
      */
     public static void main(String[] args) {
         
-        MatrizSenku matrizSenku = new MatrizSenku(2);
+        MatrizSenku matrizSenku = new MatrizSenku(1);
         
         matrizSenku.moverFicha(5,3,3,3);
         
         matrizSenku.volverJugada();
-        
+        matrizSenku.mostrarMatriz();
         matrizSenku.moverFicha(5,3,3,3);
         
         matrizSenku.moverFicha(2,3,4,3);
@@ -39,7 +39,7 @@ public class NewMain {
         matrizSenku.moverFicha(7,3,4,3);
         
         
-        matrizSenku.vaciarMatriz();
+        //matrizSenku.vaciarMatriz();
         
         char resultado = matrizSenku.estadoJuego();
         

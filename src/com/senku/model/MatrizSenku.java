@@ -323,11 +323,18 @@ public class MatrizSenku {
 
             if (vertical) {
                 int posicionMedio = (ySel + yDes)/2;
+                
+                
                 this.matriz[xSel][posicionMedio] = this.BOLA;
+                
 
             } else {
                 int posicionMedio = (xSel + xDes)/2;
-                this.matriz[xSel][posicionMedio] = this.BOLA;
+                
+                
+                
+                this.matriz[posicionMedio][ySel] = this.BOLA;
+                
 
             }
             this.matriz[xSel][ySel] = this.BOLA;
