@@ -27,12 +27,15 @@ public class MatrizSenku {
      * Bolas restantes.
      */
     public int score;
-    
+    private char esquina = '2';
+    private char fichas = '1';
     private List<Movimiento> mov_anteriores = new ArrayList(); //Lista que guarda los movimientos realizados.
     private final  Instant TIEMPO_INICIO; //constante tiempo de inicio.
-    private final char VACIA = '0';
-    private final char PARED = '2';
-    private final char BOLA = '1';
+    public static final char VACIA = '0';
+    public static final char PARED = '2';
+    public static final char BOLA = '1';
+    
+    
 
     /**
      * Constructor.
@@ -125,6 +128,21 @@ public class MatrizSenku {
         this.mov_anteriores.clear(); //Limpia la lista
         this.TIEMPO_INICIO = Instant.now(); //Coge tiempo de inicio.
 
+    }
+        public char getEsquina(int x, int y) {
+        return matriz[x][y];
+    }
+    
+    public char esquinas() {
+        return esquina;
+    }
+    
+    public char getFichas(int x, int y) {
+        return matriz[x][y];
+    }
+    
+    public char fichas() {
+        return esquina;
     }
 
     /**
