@@ -64,12 +64,16 @@ public class Tablero {
                     
                     for(int i=0; i<listaBolas.size(); i++){
                      Circle listF = listaBolas.get(i);
-                     gridTablero.getChildren().remove(listF);
+                     gridTablero.getChildren().remove(listF);   
                      }
                     
+                    senku.moverFicha(xSel, ySel, xDes, yDes);
+                    mostrarFondoTablero();
+                    
+                    contadorClick = 0;
                 }
  
-                senku.moverFicha(xSel, ySel, xDes, yDes);
+                
 
 
                 System.out.println("Numero de clicks:" +
