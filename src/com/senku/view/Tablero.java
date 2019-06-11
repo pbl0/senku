@@ -19,6 +19,8 @@ import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 /**
@@ -73,9 +75,6 @@ public class Tablero {
                     contadorClick = 0;
                 }
  
-                
-
-
                 System.out.println("Numero de clicks:" +
                         contadorClick);
                 System.out.println(" X:" + 
